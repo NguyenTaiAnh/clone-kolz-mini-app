@@ -1,9 +1,15 @@
-export const API_URL = 'http://localhost:4000/api'
+// export const API_URL = 'http://localhost:4000/api'
+export const API_URL = 'https://dmc.dt.ciis.canon.com/api'
 
-// export const TELEGRAM_BOT_URL = 'https://t.me/snowmangame_bot'
+export const TELEGRAM_BOT_URL = 'https://t.me/kolz_chatbox_bot'
 
-// export const PATH_TON_WALLET = 'https://app-snow.surge.sh/tonconnect-manifest.json'
+export const PATH_TON_WALLET = 'https://3951-222-253-45-233.ngrok-free.app/tonconnect-manifest.json'
 
-// export const TON_ADDRESS = 'UQBoX4G3-BfJjeu30_jv5K7STZM3oNaRvW2tGIkDL5Nt8O4q'
+export const TON_ADDRESS = 'UQBoX4G3-BfJjeu30_jv5K7STZM3oNaRvW2tGIkDL5Nt8O4q'
 
-// export const TON_AMOUNT = 0.1
+export const TON_AMOUNT = 0.1
+
+export const TWITTER_V2_APP_KEY = 'NVA3ZGpaRkl2OUZ2NnFxeHZYenE6MTpjaQ'
+
+// export const REDIRECT_URI = 'http://localhost:3001/mission'
+export const REDIRECT_URI = 'https://clone-kolz-mini-app.surge.sh/mission'

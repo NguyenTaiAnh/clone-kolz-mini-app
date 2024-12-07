@@ -1,17 +1,19 @@
 export interface CurrentUser {
   id: string
   telegram_id: number
-  telegram_username: string
-  telegram_firstname: string
-  telegram_lastname: null
+  username: string
+  first_name: string
+  last_name: null
   user_type_name: string
   points: string
+  energies:string
   profit_per_hour: string
   coins_to_level_up: string
   coins_per_tap: string
   daily_booster: DailyBooster
   friends: Friend[]
   ceo_level: CeoLevel
+  latest_checkin:any
 }
 
 export interface CeoLevel {

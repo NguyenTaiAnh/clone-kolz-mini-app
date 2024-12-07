@@ -8,7 +8,7 @@ export interface TaskItem {
   name: string
   social_type_id: number
   social_info: string
-  coins: string
+  points: string
   started: boolean
   claimed: boolean
   link?: string

@@ -3,5 +3,7 @@ export enum QueryKeys {
   CLAIM = 'claim',
   START_TASK = 'start-task',
   TASKS = 'tasks',
-  SCHEDULE_TASK = 'schedule-task'
+  SCHEDULE_TASK = 'schedule-task',
+  AUTH_INVITE_FRIENDS = 'auth-invite-friends',
+  CONVERSATIONS='conversations'
 }

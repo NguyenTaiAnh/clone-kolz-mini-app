@@ -33,7 +33,7 @@ export const taskApi = {
       const response = await fetcher.post<any>('/daily-checkin', {})
       return response.data
     } catch (error: any) {
-      throw new Error(error)
+      throw new Error(error?.response?.data?.message || error)
     }
   },
   getHistories: async () => {

@@ -5,9 +5,37 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
+    <script>
+      window.global = window
+    </script>
+    <script type="module">
+      import process from 'process'
+      import EventEmitter from 'events'
+      import { Buffer } from 'buffer'
+      window.Buffer = Buffer
+      window.process = process
+      window.EventEmitter = EventEmitter
+    </script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      Telegram.WebApp.ready()
+      const tg = window.Telegram.WebApp
+      const user = tg.initDataUnsafe.user
+      const initDataUnsafe = window.Telegram.WebApp.initDataUnsafe
+
+      if (user) {
+        localStorage.setItem('telegram_id', user.id)
+        localStorage.setItem('telegram_username', user.username)
+        localStorage.setItem('telegram_firstname', user.first_name)
+        localStorage.setItem('telegram_lastname', user.last_name)
+        localStorage.setItem('is_premium', !!user.is_premium)
+      } else {
+        console.log('Cannot retrieve user telegram information.')
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
