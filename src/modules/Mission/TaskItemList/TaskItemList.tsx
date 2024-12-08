@@ -8,7 +8,7 @@ import { conditionSocial } from '@constants/conditionSocial'
 import { TaskItem } from '@interfaces/task.interface'
 // import { formatProfitPerHour } from '@utils'
 import { TaskContent } from '../TaskContent'
-import { CoinIcon, xIcon } from '@assets/images'
+import { CoinIcon, EvmIcon, TonIcon, xIcon } from '@assets/images'
 
 interface TaskItemListProps {
   task: TaskItem
@@ -40,11 +40,18 @@ const TaskItemList: React.FC<TaskItemListProps> = ({ task }) => {
       case conditionSocial.X:
         return (
           <img src={xIcon} alt='airdrop' className='h-[42px]' />
-          // <div>
-          //   <Twitter className='h-[42px] w-[42px] bg-black'/>
-          // </div>
         )
-
+        
+      case 6:
+        return (
+          <img src={TonIcon} alt='airdrop' className='h-[42px]' />
+        )
+        
+      case 7:
+        return (
+          <img src={EvmIcon} alt='airdrop' className='h-[42px]' />
+        )
+        
       default:
         return (
           <div>
@@ -58,7 +65,7 @@ const TaskItemList: React.FC<TaskItemListProps> = ({ task }) => {
       <div
         // onClick={() => setIsOpen(true)}
         key={task.id}
-        className='bg-white  rounded-2xl p-4 leading-3 flex justify-between items-center space-x-4 px-4 mb-5'
+        className='bg-white  rounded-lg p-4 leading-3 flex justify-between items-center space-x-4 px-4 mb-5'
       >
         <div className='text-black flex items-center gap-2'>
           {renderSocialIcon(task.social_type_id)}
@@ -66,8 +73,8 @@ const TaskItemList: React.FC<TaskItemListProps> = ({ task }) => {
             <p className='text-lg'>{task.name}</p>
             <p className='flex gap-2 items-center'>
               {/* <span className='w-2 h-2 bg-yellow-400 rounded-full animate-blink'></span> */}
+              <span className='text-yellow-400 text-sm'>+{task.points} </span>
               <img src={CoinIcon} alt='airdrop' className='h-5' />
-              <span className='text-yellow-400 text-sm'>{task.points} </span>
             </p>
           </div>
         </div>
@@ -85,7 +92,7 @@ const TaskItemList: React.FC<TaskItemListProps> = ({ task }) => {
           onInteractOutside={(e) => e.preventDefault()}
           side={'bottom'}
           className='rounded-t-[38px] border-t-0 bg-[#7dc5db] top-glow p-0 text-white'
-          // classNameIcon='right-4 top-5 focus:ring-0 '
+          classNameIcon='right-4 top-8 focus:ring-0 '
         >
           <SheetTitle></SheetTitle>
           {isOpen && <TaskContent task={task} isOpen={isOpen} setIsOpen={setIsOpen} />}

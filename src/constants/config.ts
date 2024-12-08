@@ -13,3 +13,6 @@ export const TWITTER_V2_APP_KEY = 'NVA3ZGpaRkl2OUZ2NnFxeHZYenE6MTpjaQ'
 
 // export const REDIRECT_URI = 'http://localhost:3001/mission'
 export const REDIRECT_URI = 'https://clone-kolz-mini-app.surge.sh/mission'
+
+export const PROJECT_ID = '5043c693c4e40c882d4bffcdab9fa43e'
+export const ALCHEMY_ID = 'HKTiGoU5cRibw5JOl5x_WIX2F95KLSK9'

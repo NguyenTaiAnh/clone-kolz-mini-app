@@ -1,64 +1,63 @@
-import { walletApi } from '@apis/wallet.api'
-import { useToast } from '@hooks/use-toast'
-import { cn } from '@lib/utils'
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
-import { Copy } from 'lucide-react'
+import { Web3Provider } from '@context/Web3Provider/Web3Provider'
 import React from 'react'
+import { ConnectKitButton } from 'connectkit'
+import { WalletEVM } from '@components/WalletEVM'
+import { Button } from '@components/ui/button'
+import { cn } from '@lib/utils'
 
 interface ConnectWalletEVMProps {
   task: any
   setIsOpen: (isOpent: boolean) => void
+  handleStartTask: any
+  handleClaim: any
+  isClaimLoading: boolean
 }
-const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({ task, setIsOpen }) => {
-  const [tonConnectUI] = useTonConnectUI()
-  const { toast } = useToast()
-  // const [showModal, setShowModal] = useState(false)
-  // const { clicks, handleCardClick, handleAnimationEnd } = useClickable()
-
-  const rawAddress = useTonAddress(false)
-  const userFriendlyAddress = useTonAddress()
-  const shortAddress = userFriendlyAddress.slice(0, 6) + '...' + userFriendlyAddress.slice(-4)
-
-  const disconnect = async () => {
-    await tonConnectUI.disconnect()
-    await walletApi.disconnectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
-  }
-
-  const handleConnectWalletAddress = async () => {
-    await walletApi.connectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
-  }
+const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({
+  task,
+  setIsOpen,
+  handleStartTask,
+  handleClaim,
+  isClaimLoading
+}) => {
   const handleStart = () => {
-    tonConnectUI.openModal()
-    setIsOpen(false)
-  }
-
-  const handleCopyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(userFriendlyAddress)
-      // setShowModal(true)
-      // setTimeout(() => {
-      //   setShowModal(false)
-      // }, 500)
-      toast({
-        title: 'Success',
-        description: 'Address copied to clipboard!',
-        duration: 3000,
-        variant: 'default'
-      })
-    } catch (err) {
-      console.error('Lỗi khi sao chép!', err)
+    if(!task.started){
+      handleStartTask()
+      setIsOpen(false)
     }
   }
-
-  React.useEffect(() => {
-    if (rawAddress) handleConnectWalletAddress()
-  }, [rawAddress])
-
   return (
     <>
-      {task.started && rawAddress ? (
+      <div onClick={handleStart}>
+        <WalletEVM />
+      </div>
+      {!task.claimed && (
+        <div>
+          <Web3Provider>
+            <ConnectKitButton.Custom>
+              {({ isConnected, isConnecting, show, hide, address, ensName, chain }: any) => {
+                return (
+                  isConnected &&
+                  address && (
+                    <Button
+                      className={cn(' h-auto font-bold px-5 py-3 bg-[#65C0E4] text-white rounded-3xl')}
+                      variant={'link'}
+                      size='lg'
+                      onClick={handleClaim}
+                      disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+                    >
+                      {isClaimLoading ? 'Receiving...' : 'Claim'}
+                    </Button>
+                  )
+                )
+              }}
+            </ConnectKitButton.Custom>
+          </Web3Provider>
+        </div>
+      )}
+      {/* <appkit-button /> */}
+      {/* {task.started && address ? (
         <div className='flex flex-col gap-3'>
-          <p className='text-center'>{shortAddress}</p>
+          <p className='text-center'>{address}</p>
           <div className='flex gap-2'>
             <button
               onClick={disconnect}
@@ -78,7 +77,7 @@ const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({ task, setIsOpen }) 
         <button className={cn('py-2 bg-[#65C0E4] justify-center rounded-lg w-[100px]')} onClick={() => handleStart()}>
           Connect
         </button>
-      )}
+      )} */}
     </>
   )
 }

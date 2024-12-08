@@ -14,12 +14,11 @@
     "deploy": "sh ./deploy-surge.sh"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@heroicons/react": "^2.2.0",
     "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
-    "@reown/appkit": "^1.5.3",
-    "@reown/appkit-adapter-wagmi": "^1.5.3",
     "@tanstack/react-query": "^5.62.2",
     "@tanstack/react-query-devtools": "^5.62.3",
     "@telegram-apps/sdk": "^2.9.1",
@@ -32,6 +31,7 @@
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "connectkit": "^1.8.2",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.464.0",
     "react": "^18.3.1",
@@ -42,8 +42,8 @@
     "react-transition-group": "^4.4.5",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "viem": "^2.21.53",
-    "wagmi": "^2.13.3",
+    "viem": "^2.21.54",
+    "wagmi": "^2.13.4",
     "zustand": "^5.0.2"
   },
   "devDependencies": {

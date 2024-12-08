@@ -13,9 +13,10 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useEffect, useMemo, useState } from 'react'
 import { DialogConfirm } from '../DialogConfirm'
 import { Twitter } from '@assets/icons'
-import { CoinIcon } from '@assets/images'
+import { CoinIcon, EvmIcon, TonIcon } from '@assets/images'
 import useGetClaim from '@hooks/queries/useGetClaim'
 import { ConnectWalletTon } from '../ConnectWalletTon'
+import { ConnectWalletEVM } from '../ConnectWalletEVM'
 
 interface TaskContentProps {
   task: TaskItem
@@ -50,7 +51,7 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
       })
 
       setIsLoading(false)
-      
+
       // if (task.link) {
       //   window.open(task.link || '', '_blank', 'noopener noreferrer')
       // } else {
@@ -58,7 +59,6 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
       // }
       if (task.link) {
         window.location.href = task.link || ''
-        
       } else {
         window.location.href = urlSocialMapping[task.social_type_id] + task.social_info || ''
       }
@@ -85,9 +85,13 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
       // case conditionSocial.YOUTUBE:
       //   return <img src={youtubeIcon} alt='Main Character' className='w-[80%] h-[80%] rounded-full' />
       case conditionSocial.X:
-        return <Twitter className='w-[80%] h-[80%] rounded-full' />
+        return <Twitter className='w-[10%] h-[10%] rounded-full' />
       // return <img src={xIcon} alt='Main Character' className='w-[80%] h-[80%] rounded-full' />
+      case 6:
+        return <img src={TonIcon} alt='airdrop' className='h-[42px]' />
 
+      case 7:
+        return <img src={EvmIcon} alt='airdrop' className='h-[42px]' />
       default:
         return <Gem size={42} />
     }
@@ -122,10 +126,10 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
     claimQuery.refetch()
   }
 
-  const handleStartTask = async (id: string) => {
+  const handleStartTask = async () => {
     setIsLoading(true)
     try {
-      await startTask(id)
+      await startTask(task.id)
     } catch (error) {
       setIsLoading(false)
 
@@ -134,70 +138,68 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
   }
 
   const renderButtonStartTask = () => {
-    if (task.link) {
+    if (task.link && !task.started) {
       return (
         <button
-          className={cn('py-2 bg-slate-400 justify-center rounded-lg w-[100px]', {
+          className={cn('px-4 py-2 bg-slate-400 justify-center rounded-3xl ', {
             'bg-[#65C0E4]': !task.started
           })}
           onClick={() => !task.started && setIsDialogVisible(true)}
         >
-          {task.started ? 'Joined' : 'Join'}
+          start
         </button>
       )
     }
     if (task.social_type_id == 7) {
+      return <ConnectWalletEVM task={task} setIsOpen={setIsOpen} handleStartTask={handleStartTask} handleClaim={handleClaim} isClaimLoading={isClaimLoading}/>
     }
 
     if (task.social_type_id == 6) {
-      return (
-        <ConnectWalletTon task={task} setIsOpen={setIsOpen}/>
-        
-      )
+      return <ConnectWalletTon task={task} setIsOpen={setIsOpen} handleStartTask={handleStartTask} handleClaim={handleClaim} isClaimLoading={isClaimLoading}/>
     }
   }
+  
 
   return (
     <>
-      <div className='bg-[black] h-full w-full rounded-t-[38px] mt-[2px] py-6 px-4'>
-        <div className='bg-[#272a2f] py-8 px-6 rounded-3xl relative mt-8'>
-          <div className='absolute -top-8 left-1/2 -translate-x-1/2 w-16 h-16 bg-black rounded-full p-2'>
-            <div className='bg-[#272a2f] rounded-full w-full h-full flex items-center justify-center'>
-              {renderSocialIcon(task.social_type_id)}
-              {/* <img src={mainCharacter} alt='Main Character' className='w-[80%] h-[80%]' /> */}
-            </div>
+      <div className='bg-[#222326] h-full w-full rounded-t-[38px] mt-[2px] py-6 px-4'>
+        <div className='flex flex-col gap-3'>
+          <div className='flex items-center gap-2'>
+            {renderSocialIcon(task.social_type_id)}
+            <span>{task.name}</span>
           </div>
-          <div className='flex flex-col items-center gap-4 mt-4'>
-            <div className='flex justify-center items-center gap-3 '>
-              <img src={CoinIcon} alt='Task Icon' className='h-14 w-14' />
-              <span className='text-[32px] text-white font-extrabold font-jetbrains text-gradient'>
-                {/* {formatProfitPerHour(Number(task.coins || 0))} */}
-                {task.points || 0}
-              </span>
-            </div>
-
-            <p className='text-base font-semibold text-center'>{task.claimed? 'You are claimed' :task.name }</p>
-            <div className='flex justify-center'>{renderButtonStartTask()}</div>
-          </div>
-        </div>
-
-        <div className='mt-3 flex justify-center'>
-          <Button
-            // loading={!!isClaimLoading}
-            className={cn(
-              ' h-auto font-bold px-5 py-3',
-              (task.claimed && task.started) || isClaimLoading || !task.started
-                ? 'bg-slate-400 text-white'
-                : 'bg-[#65C0E4] text-white'
+          <p className='text-base font-semibold text-center flex items-center justify-center py-4'>
+            {task.claimed ? (
+              'You are claimed'
+            ) : (
+              <>
+                <span className=' text-white  font-bold mr-2'>To get +{task.points || 0}</span>
+                <img src={CoinIcon} className='w-5 h-5' alt='Coin Icon' />
+              </>
             )}
-            variant={'link'}
-            size='lg'
-            onClick={handleClaim}
-            disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
-          >
-            {isClaimLoading ? 'Receiving...' : 'Check'}
-          </Button>
+          </p>
+          <div className='flex justify-center'>{renderButtonStartTask()}</div>
         </div>
+
+        {!((task.claimed && task.started) || isClaimLoading || !task.started) && task.link && (
+          <div className='mt-3 flex justify-center pt-4'>
+            <Button
+              className={cn(
+                ' h-auto font-bold px-5 py-3',
+                (task.claimed && task.started) || isClaimLoading || !task.started
+                  ? 'bg-slate-400 text-white'
+                  : 'bg-[#65C0E4] text-white'
+              )}
+              variant={'link'}
+              size='lg'
+              onClick={handleClaim}
+              disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+            >
+              {isClaimLoading ? 'Receiving...' : 'Check'}
+            </Button>
+          </div>
+        )}
+        
       </div>
       <DialogConfirm
         task={task}

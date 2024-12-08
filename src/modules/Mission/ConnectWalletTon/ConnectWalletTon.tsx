@@ -1,4 +1,5 @@
 import { walletApi } from '@apis/wallet.api'
+import { Button } from '@components/ui/button'
 import { useToast } from '@hooks/use-toast'
 import { cn } from '@lib/utils'
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react'
@@ -8,8 +9,17 @@ import React from 'react'
 interface ConnectWalletTonProps {
   task: any
   setIsOpen: (isOpent: boolean) => void
+  handleStartTask: any
+  handleClaim: any
+  isClaimLoading: boolean
 }
-const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({ task, setIsOpen }) => {
+const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({
+  task,
+  setIsOpen,
+  handleStartTask,
+  handleClaim,
+  isClaimLoading
+}) => {
   const [tonConnectUI] = useTonConnectUI()
   const { toast } = useToast()
   // const [showModal, setShowModal] = useState(false)
@@ -21,13 +31,14 @@ const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({ task, setIsOpen }) 
 
   const disconnect = async () => {
     await tonConnectUI.disconnect()
-    await walletApi.disconnectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
+    // await walletApi.disconnectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
   }
 
-  const handleConnectWalletAddress = async () => {
-    await walletApi.connectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
-  }
+  // const handleConnectWalletAddress = async () => {
+  //   // await walletApi.connectWalletAddress({ wallet_address: userFriendlyAddress, wallet: 'ton' })
+  // }
   const handleStart = () => {
+    !task.started && handleStartTask()
     tonConnectUI.openModal()
     setIsOpen(false)
   }
@@ -50,10 +61,10 @@ const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({ task, setIsOpen }) 
     }
   }
 
-  React.useEffect(() => {
-    if (rawAddress) handleConnectWalletAddress()
-  }, [rawAddress])
-
+  // React.useEffect(() => {
+  //   if (rawAddress) handleConnectWalletAddress()
+  // }, [rawAddress])
+  console.log({ rawAddress })
   return (
     <>
       {task.started && rawAddress ? (
@@ -73,6 +84,17 @@ const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({ task, setIsOpen }) 
               <Copy />
             </button>
           </div>
+          <div className='mt-3 flex justify-center pt-4'>
+          <Button
+            className={cn(' h-auto font-bold px-5 py-3 bg-[#65C0E4] text-white rounded-3xl')}
+            variant={'link'}
+            size='lg'
+            onClick={handleClaim}
+            disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+          >
+            {isClaimLoading ? 'Receiving...' : 'Claim'}
+          </Button>
+        </div>
         </div>
       ) : (
         <button className={cn('py-2 bg-[#65C0E4] justify-center rounded-lg w-[100px]')} onClick={() => handleStart()}>

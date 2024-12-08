@@ -5,8 +5,11 @@ import { useLocation, useNavigate } from 'react-router'
 
 import { PATH } from '@routes/path'
 import { BackButton } from '@components/BackButton'
+import React from 'react'
+import { ModalWalletEVM } from '@components/ModalWalletEVM'
 
 const Header = () => {
+  const [isOpen, setIsOpen] = React.useState(false)
   const currentUser = useStore((state) => state.currentUser)
   const navigate = useNavigate()
   const location = useLocation()
@@ -22,9 +25,10 @@ const Header = () => {
           <span className='text-yellow-500 font-bold text-xl'>{initialPoints}</span>
         </div>
       </div>
-      <div className='flex items-center'>
+      <div className='flex items-center' onClick={()=>setIsOpen(true)}>
         <Wallet className='w-[40px] h-[40px]' />
       </div>
+      <ModalWalletEVM isOpen={isOpen} setIsOpen={setIsOpen}/>
     </div>
   )
 }

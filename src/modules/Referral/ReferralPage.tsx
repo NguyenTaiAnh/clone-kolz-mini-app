@@ -15,16 +15,9 @@ const ReferralPage = () => {
   // const isLoading = queryResult.isLoading
   const referralCode = queryResult.data?.referral_code 
   const handleInviteFriend = async () => {
-    try {
-      const inviteLink = `${TELEGRAM_BOT_URL}?start=${referralCode}`
-      await navigator.clipboard.writeText(inviteLink)
-      setShowModal(true)
-      setTimeout(() => {
-        setShowModal(false)
-      }, 500) // Ẩn modal sau 2 giây
-    } catch (err) {
-      console.error('Lỗi khi sao chép!', err)
-    }
+    const url = `${TELEGRAM_BOT_URL}?start=${referralCode}`
+    const linkRedirect = `https://t.me/share/url?url=${url}`
+    window.open(linkRedirect, '_blank')
   }
   return (
     <>

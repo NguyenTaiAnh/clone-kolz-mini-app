@@ -12,6 +12,7 @@ import { ListTask } from './ListTask'
 import { REDIRECT_URI, TWITTER_V2_APP_KEY } from '@constants/config'
 import { ModalInfoSocial } from '@components/ModalInfoSocial'
 import { useStore } from '@stores'
+import { ModalWalletEVM } from '@components/ModalWalletEVM'
 
 const MissionPage = () => {
   const infoX = getLocalStorage('twitter_token')
@@ -21,7 +22,7 @@ const MissionPage = () => {
   const [profile, setProfile] = React.useState()
   console.log({provider})
   console.log({profile})
-  // const [showPopup, setShowPopup] = React.useState(false);
+  const [showPopup, setShowPopup] = React.useState(false);
   const [showPopupTele, setShowPopupTele] = React.useState(false)
   const [showPopupX, setShowPopupX] = React.useState(false)
   console.log({showPopupX})
@@ -76,15 +77,16 @@ const MissionPage = () => {
           <Telegram className='w-[40px] h-[40px] text-white' />
         </div>
 
-        <div>
+        <div onClick={() => setShowPopup(true)}>
           <Wallet
-            // onClick={() => setShowPopup(true)}
+            
             className='w-[40px] h-[40px] text-white'
           />
         </div>
       </div>
       <DailyCheckIn />
       <ListTask />
+      <ModalWalletEVM isOpen={showPopup} setIsOpen={setShowPopup}/>
       <ModalInfoSocial state={showPopupTele} setState={setShowPopupTele} data={currentUser} title='Telegram' />
       <ModalInfoSocial state={showPopupX} setState={setShowPopupX} data={infoX} title='X' />
     </div>

@@ -66,9 +66,9 @@ function App() {
           </div>
         </>
       )}
-      <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
+      {/* <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
         <GlobalLoading />
-      </CSSTransition>
+      </CSSTransition> */}
 
       <Toaster
         containerStyle={{
