@@ -80,12 +80,10 @@ const LoginSocialTwitter:React.FC<LoginSocialTwitterProps> = ({
           grant_type: `authorization_code`,
           code_verifier: "challenge",
         };
-        console.log(details)
         // setIsFetching(true)
 
         try {
           const login = await socialApi.loginTwitter(details)
-          console.log({login})
           const info = await socialApi.getInfo({access_token: login.access_token})
           setLocalStorage("twitter_token",info)
         //   setIsFetching(false)

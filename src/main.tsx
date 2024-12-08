@@ -1,5 +1,5 @@
 import '@styles/index.css'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { createRoot } from 'react-dom/client'
 // import './index.css'
 import App from './App.tsx'

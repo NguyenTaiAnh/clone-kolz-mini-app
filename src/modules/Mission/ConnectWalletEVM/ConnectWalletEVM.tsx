@@ -1,9 +1,10 @@
-import { Web3Provider } from '@context/Web3Provider/Web3Provider'
 import React from 'react'
 import { ConnectKitButton } from 'connectkit'
 import { WalletEVM } from '@components/WalletEVM'
 import { Button } from '@components/ui/button'
 import { cn } from '@lib/utils'
+import { LoadingIcon } from '@assets/icons'
+import { useAccount } from 'wagmi'
 
 interface ConnectWalletEVMProps {
   task: any
@@ -19,22 +20,24 @@ const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({
   handleClaim,
   isClaimLoading
 }) => {
+  const {isConnected} = useAccount()
   const handleStart = () => {
     if(!task.started){
       handleStartTask()
       setIsOpen(false)
     }
   }
+
+
   return (
-    <>
+    <section className='flex flex-col items-center justify-center gap-5'>
       <div onClick={handleStart}>
         <WalletEVM />
       </div>
-      {!task.claimed && (
+      {!task.claimed && isConnected  && (
         <div>
-          <Web3Provider>
             <ConnectKitButton.Custom>
-              {({ isConnected, isConnecting, show, hide, address, ensName, chain }: any) => {
+              {({ isConnected,  address, }: any) => {
                 return (
                   isConnected &&
                   address && (
@@ -43,15 +46,14 @@ const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({
                       variant={'link'}
                       size='lg'
                       onClick={handleClaim}
-                      disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+                      disabled={(task.claimed && isConnected) || isClaimLoading}
                     >
-                      {isClaimLoading ? 'Receiving...' : 'Claim'}
+                      {isClaimLoading ?  <><LoadingIcon /> Receiving...</> : 'Claim'}
                     </Button>
                   )
                 )
               }}
             </ConnectKitButton.Custom>
-          </Web3Provider>
         </div>
       )}
       {/* <appkit-button /> */}
@@ -78,7 +80,7 @@ const ConnectWalletEVM: React.FC<ConnectWalletEVMProps> = ({
           Connect
         </button>
       )} */}
-    </>
+    </section>
   )
 }
 export default React.memo(ConnectWalletEVM)

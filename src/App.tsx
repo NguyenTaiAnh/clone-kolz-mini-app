@@ -6,12 +6,14 @@ import { TonConnectUIProvider } from '@tonconnect/ui-react'
 import React from 'react'
 import { useGetToken } from '@hooks'
 import { CSSTransition } from 'react-transition-group'
-import { cn } from '@lib/utils'
+// import { cn } from '@lib/utils'
 import { Toaster } from 'react-hot-toast'
-import { KolzIcon } from '@assets/images'
+// import { KolzIcon } from '@assets/images'
 import { useStore } from '@stores'
 import useConfig from '@hooks/useConfig'
-import { GlobalLoading } from '@components/GlobalLoading'
+import FlashScreen from '@components/FlashScreen/FlashScreen'
+import { Web3Provider } from '@context/Web3Provider/Web3Provider'
+// import { GlobalLoading } from '@components/GlobalLoading'
 
 function App() {
   // React.useEffect(() => {
@@ -28,7 +30,7 @@ function App() {
   React.useEffect(() => {
     const initWebApp = async () => {
       WebApp.ready()
-      WebApp.expand();
+      WebApp.expand()
       console.log('WebApp.initData', WebApp.initData)
       console.log('WebApp.initData isPremium', WebApp.initDataUnsafe.user?.is_premium)
       console.log('WebApp.initData ', WebApp.initDataUnsafe.user)
@@ -44,31 +46,22 @@ function App() {
         twaReturnUrl: TELEGRAM_BOT_URL
       }}
     >
-      {routeElements}
+      <Web3Provider>
+
+        {routeElements}
+      </Web3Provider>
 
       <CSSTransition nodeRef={nodeRef} in={!data || isPending} timeout={1500} unmountOnExit>
-        <div className={cn('fixed top-0 left-0 w-screen h-screen bg-black z-[9999] flex items-center justify-center')}>
-          <img src={KolzIcon} className='w-3/4' />
-          <p className='absolute bottom-5'>
-            <span className='text-white font-semibold text-2xl text-gradient'>Let's Start</span>
-          </p>
-        </div>
+        <FlashScreen />
       </CSSTransition>
       {!data && isPending && (
         <>
-          <div
-            className={cn('fixed top-0 left-0 w-screen h-screen bg-black z-[9999] flex items-center justify-center')}
-          >
-            <img src={KolzIcon} className='w-3/4' />
-            <p className='absolute bottom-5'>
-              <span className='text-white font-semibold text-2xl text-gradient'>Let's Start</span>
-            </p>
-          </div>
+          <FlashScreen />
         </>
       )}
-      {/* <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
-        <GlobalLoading />
-      </CSSTransition> */}
+      <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
+        <FlashScreen />
+      </CSSTransition>
 
       <Toaster
         containerStyle={{

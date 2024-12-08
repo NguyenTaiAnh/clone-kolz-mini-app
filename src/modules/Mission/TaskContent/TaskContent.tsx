@@ -12,7 +12,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 // import { formatProfitPerHour } from '@utils'
 import React, { useEffect, useMemo, useState } from 'react'
 import { DialogConfirm } from '../DialogConfirm'
-import { Twitter } from '@assets/icons'
+import { LoadingIcon, Twitter } from '@assets/icons'
 import { CoinIcon, EvmIcon, TonIcon } from '@assets/images'
 import useGetClaim from '@hooks/queries/useGetClaim'
 import { ConnectWalletTon } from '../ConnectWalletTon'
@@ -181,7 +181,7 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
           <div className='flex justify-center'>{renderButtonStartTask()}</div>
         </div>
 
-        {!((task.claimed && task.started) || isClaimLoading || !task.started) && task.link && (
+        {!((task.claimed && task.started) || !task.started) && task.link && (
           <div className='mt-3 flex justify-center pt-4'>
             <Button
               className={cn(
@@ -195,7 +195,8 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
               onClick={handleClaim}
               disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
             >
-              {isClaimLoading ? 'Receiving...' : 'Check'}
+              
+              {isClaimLoading ? <><LoadingIcon /> Receiving...</> : 'Check'}
             </Button>
           </div>
         )}

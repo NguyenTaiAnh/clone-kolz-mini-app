@@ -1,3 +1,5 @@
+import React from 'react'
+
 const LoadingPopup = () => {
   return (
     <div className='fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50'>
@@ -8,4 +10,4 @@ const LoadingPopup = () => {
   )
 }
 
-export default LoadingPopup
+export default React.memo(LoadingPopup)

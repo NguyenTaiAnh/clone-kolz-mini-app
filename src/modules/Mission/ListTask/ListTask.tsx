@@ -10,14 +10,7 @@ interface ListTaskProps {
 
 const ListTask: React.FC<ListTaskProps> = () => {
   const {data, isLoading} = useGetTask()
-  // <div>
-  //     <h3 className="text-lg font-semibold mb-4 text-[#1E56F6]">Your Tasks</h3>
-  //     <div className="space-y-4">
-  //       {tasks.map((task) => (
-  //         <TaskItem key={task.id} {...task} refetchData={fetchTasks} />
-  //       ))}
-  //     </div>
-  //   </div>
+
   return (
     <div>
       <h3 className="text-lg font-semibold mb-4 text-[#1E56F6]">Your Tasks</h3>

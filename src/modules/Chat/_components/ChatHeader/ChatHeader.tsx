@@ -5,8 +5,8 @@ interface ChatHeaderProps{
     characterId:any
 }
 const ChatHeader:React.FC<ChatHeaderProps> = ({ characterId }) => {
-  const navigate = useNavigate();
   console.log({characterId})
+  const navigate = useNavigate();
   return (
     <div className="bg-gray-800 p-4 flex items-center justify-between">
       <button onClick={() => navigate("/")} className="flex items-center space-x-2 text-white hover:text-gray-300 bg-gray-600 rounded-2xl p-2">

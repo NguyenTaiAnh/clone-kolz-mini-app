@@ -13,7 +13,7 @@ const ModalWalletEVM: React.FC<ModalWalletEVMProps> = ({ isOpen, setIsOpen }) =>
         aria-describedby=''
         onInteractOutside={(e) => e.preventDefault()}
         side={'bottom'}
-        className='rounded-t-[38px] border-t-0 bg-[#7dc5db] top-glow p-0 text-white'
+        className='rounded-t-[38px] border-t-0 bg-[#417dc5] top-glow p-0 text-white'
         classNameIcon='right-4 top-8 focus:ring-0 '
       >
         <SheetTitle></SheetTitle>

@@ -16,7 +16,6 @@ import { ModalWalletEVM } from '@components/ModalWalletEVM'
 
 const MissionPage = () => {
   const infoX = getLocalStorage('twitter_token')
-  console.log({infoX})
   const currentUser = useStore((state) => state.currentUser)
   const [provider, setProvider] = React.useState('')
   const [profile, setProfile] = React.useState()

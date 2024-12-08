@@ -17,7 +17,6 @@ interface ModalClaimProps {
   points: any
 }
 const ModalClaim: React.FC<ModalClaimProps> = ({ setShowModal, showModal, points }) => {
-  console.log("vo day")
   const { data, isPending = true } = useGetToken()
   const { setIsFirstTime } = useStore()
   const queryClient = useQueryClient()
@@ -49,7 +48,6 @@ const ModalClaim: React.FC<ModalClaimProps> = ({ setShowModal, showModal, points
       })
     },
     onError: (error) => {
-      console.log('check on error: ', error)
       showToast('error',error.message, 'destructive')
     }
   })

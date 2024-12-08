@@ -24,7 +24,6 @@ const useGetClaim = (task: TaskItem, options?: UseGetClaim, signal?: any) => {
   })
 
   useEffect(() => {
-    console.log('task : ,', task)
     if (queryResult.isFetched && queryResult.isSuccess && queryResult.data) {
       toast({
         title: 'Success',

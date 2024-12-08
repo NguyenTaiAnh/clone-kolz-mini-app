@@ -105,3 +105,8 @@ body::-webkit-scrollbar-thumb:hover {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
 }
+
+.checkin-error-toast{
+  background-color:#3b82f6;
+  color:white 
+}

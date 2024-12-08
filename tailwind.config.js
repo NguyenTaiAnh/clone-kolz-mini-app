@@ -4,6 +4,66 @@ export default {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+		keyframes: {
+			borderMove: {
+				'0%': {
+					backgroundPosition: '200% 0'
+				},
+				'50%': {
+					backgroundPosition: '0 0'
+				},
+				'100%': {
+					backgroundPosition: '200% 0'
+				}
+			},
+			fadeIn: {
+				'0%': {
+					opacity: '0',
+					transform: 'translateY(20px)'
+				},
+				'100%': {
+					opacity: '1',
+					transform: 'translateY(0)'
+				}
+			},
+			'accordion-down': {
+				from: {
+					height: '0'
+				},
+				to: {
+					height: 'var(--radix-accordion-content-height)'
+				}
+			},
+			'accordion-up': {
+				from: {
+					height: 'var(--radix-accordion-content-height)'
+				},
+				to: {
+					height: '0'
+				}
+			},
+		  loading:{
+			  '0%':{
+				  transform:'rotateX(0) rotateY(0) rotateY(0)'
+			  },
+			  '33%':{
+				  transform:'rotateX(180deg) rotateY(0) rotateY(0)'
+			  },
+			  '57%':{
+				  transform:'rotateX(180deg) rotateY(180deg) rotateY(0)'
+			  },
+			  '100%':{
+				  transform:'rotateX(180deg) rotateY(180deg) rotateY(180deg)'
+			  },
+		  }
+		},
+		animation: {
+			borderMove: 'borderMove 3s infinite linear',
+			fadeIn: 'fadeIn 0.5s ease-in-out',
+			'accordion-down': 'accordion-down 0.2s ease-out',
+			'accordion-up': 'accordion-up 0.2s ease-out',
+		  loading: 'loading 2s ease-in-out infinite',
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

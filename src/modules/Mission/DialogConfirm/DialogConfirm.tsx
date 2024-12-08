@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogDescription } from '@components/ui/dialog'
 import { TaskItem } from '@interfaces/task.interface'
 import { DialogTitle } from '@radix-ui/react-dialog'
 import { Button } from '@components/ui/button'
+import { LoadingIcon } from '@assets/icons'
 
 interface DialogConfirmProps {
   task: TaskItem
@@ -26,7 +27,6 @@ const DialogConfirm: React.FC<DialogConfirmProps> = ({
     <Dialog
       open={isShow}
       onOpenChange={(open: boolean) => {
-        console.log('check is show: ', isShow)
         if (!isLoading) setIsShow(open)
       }}
     >
@@ -66,6 +66,7 @@ const DialogConfirm: React.FC<DialogConfirmProps> = ({
               // loading={isLoading}
               disabled={isLoading}
             >
+              {isLoading && <LoadingIcon/>}
               Open
             </Button>
           </div>

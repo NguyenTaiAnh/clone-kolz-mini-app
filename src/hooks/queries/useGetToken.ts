@@ -36,7 +36,6 @@ const useGetToken = () => {
     mutationFn: (bodyRequest: AuthenticateRequest) => authApi.authenticate(bodyRequest),
     onSuccess: (data) => {
       const token = data?.token
-      console.log({token})
       const isNewUser = data?.is_new_user || false
       const age = data.age
       const isPremium = data?.is_premium || false

@@ -1,4 +1,5 @@
-import { walletApi } from '@apis/wallet.api'
+// import { walletApi } from '@apis/wallet.api'
+import { LoadingIcon } from '@assets/icons'
 import { Button } from '@components/ui/button'
 import { useToast } from '@hooks/use-toast'
 import { cn } from '@lib/utils'
@@ -64,37 +65,39 @@ const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({
   // React.useEffect(() => {
   //   if (rawAddress) handleConnectWalletAddress()
   // }, [rawAddress])
-  console.log({ rawAddress })
   return (
     <>
       {task.started && rawAddress ? (
         <div className='flex flex-col gap-3'>
-          <p className='text-center'>{shortAddress}</p>
-          <div className='flex gap-2'>
-            <button
-              onClick={disconnect}
-              className='relative bg-gradient-to-b from-[#749099] p-3 w-content text-xs rounded-xl to-[#7dc5db]'
-            >
-              disconnect
-            </button>
+          <div className='flex gap-2 items-center'>
+            <p className='text-center'>{shortAddress}</p>
+
             <button
               onClick={handleCopyLink}
-              className='relative bg-gradient-to-b from-[#749099] p-3 w-content text-xs rounded-xl to-[#7d99db]'
+              className='relative  p-3 w-content text-xs rounded-xl text-gray-400'
             >
-              <Copy />
+              <Copy size={18} />
             </button>
           </div>
-          <div className='mt-3 flex justify-center pt-4'>
-          <Button
-            className={cn(' h-auto font-bold px-5 py-3 bg-[#65C0E4] text-white rounded-3xl')}
-            variant={'link'}
-            size='lg'
-            onClick={handleClaim}
-            disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+          <button
+            onClick={disconnect}
+            className='relative px-4 py-2 w-content text-xs rounded-3xl border-[#417dc5] bg-slate-600'
           >
-            {isClaimLoading ? 'Receiving...' : 'Claim'}
-          </Button>
-        </div>
+            disconnect
+          </button>
+          <div className='mt-3 flex justify-center pt-4'>
+            {!task.claimed && (
+              <Button
+                className={cn(' h-auto font-bold px-5 py-3 bg-[#65C0E4] text-white rounded-3xl')}
+                variant={'link'}
+                size='lg'
+                onClick={handleClaim}
+                disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
+              >
+                {isClaimLoading ?  <><LoadingIcon /> Receiving...</> : 'Claim'}
+              </Button>
+            )}
+          </div>
         </div>
       ) : (
         <button className={cn('py-2 bg-[#65C0E4] justify-center rounded-lg w-[100px]')} onClick={() => handleStart()}>
