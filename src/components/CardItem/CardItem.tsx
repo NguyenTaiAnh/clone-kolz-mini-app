@@ -30,7 +30,7 @@ const CardItem: React.FC<CardItemProps> = ({ onChatClick }) => {
 
 
   return (
-    <div className='grid grid-cols-2 gap-4 p-4 mt-8 pb-7'>
+    <div className='grid grid-cols-2 gap-4 p-4 mt-1 pb-7'>
       {characterQuery.isLoading && <SketonCharacter size={4} keyName='CharacterCard' />}
       {characters &&
         characters.length > 0 &&

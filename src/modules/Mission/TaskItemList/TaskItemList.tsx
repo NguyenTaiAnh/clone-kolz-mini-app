@@ -50,12 +50,12 @@ const TaskItemList: React.FC<TaskItemListProps> = ({ task }) => {
     <>
       <div
         key={task.id}
-        className='bg-white  rounded-lg p-4 leading-3 flex justify-between items-center space-x-4 px-4 mb-5'
+        className='bg-white  rounded-2xl  py-2 leading-3 flex justify-between items-center space-x-4 px-4 mb-5'
       >
         <div className='text-black flex items-center gap-2'>
           {renderSocialIcon(task.social_type_id)}
           <div className=''>
-            <p className='text-base font-semibold'>{task.name}</p>
+            <p className='text-base leading-none font-semibold'>{task.name}</p>
             <p className='flex gap-2 items-center'>
               <span className='text-yellow-400 text-sm'>+{task.points} </span>
               <img src={CoinIcon} alt='airdrop' className='h-5' />

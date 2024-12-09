@@ -5,7 +5,7 @@ import useRouterElement from './routes/useRouterElement'
 import { TonConnectUIProvider } from '@tonconnect/ui-react'
 import React from 'react'
 import { useGetToken } from '@hooks'
-import { CSSTransition } from 'react-transition-group'
+// import { CSSTransition } from 'react-transition-group'
 // import { cn } from '@lib/utils'
 import { Toaster } from 'react-hot-toast'
 // import { KolzIcon } from '@assets/images'
@@ -13,6 +13,7 @@ import { useStore } from '@stores'
 import useConfig from '@hooks/useConfig'
 import FlashScreen from '@components/FlashScreen/FlashScreen'
 import { Web3Provider } from '@context/Web3Provider/Web3Provider'
+import { LoadingPopup } from '@components/LoadingPopup'
 // import { GlobalLoading } from '@components/GlobalLoading'
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   //   WebApp.expand(); // Attempt to expand the app to full screen
   // }, [])
   const { data, isPending = true } = useGetToken()
-  const nodeRef = React.useRef(null) // Ref cho node trong CSSTransition
+  // const nodeRef = React.useRef(null) // Ref cho node trong CSSTransition
   const { isFetching } = useConfig(data?.token || null)
 
   const { isGlobalLoading } = useStore((state) => state)
@@ -51,17 +52,18 @@ function App() {
         {routeElements}
       </Web3Provider>
 
-      <CSSTransition nodeRef={nodeRef} in={!data || isPending} timeout={1500} unmountOnExit>
+      {/* <CSSTransition nodeRef={nodeRef} in={!data || isPending} timeout={1500} unmountOnExit>
         <FlashScreen />
-      </CSSTransition>
+      </CSSTransition> */}
       {!data && isPending && (
         <>
           <FlashScreen />
         </>
       )}
-      <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
+      {isFetching && isGlobalLoading && <LoadingPopup/>}
+      {/* <CSSTransition nodeRef={nodeRef} in={isFetching && isGlobalLoading} timeout={500} classNames='fade' unmountOnExit>
         <FlashScreen />
-      </CSSTransition>
+      </CSSTransition> */}
 
       <Toaster
         containerStyle={{

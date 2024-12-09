@@ -39,7 +39,7 @@ const ReferralPage = () => {
 
           <div>
             {isLoading && <SketonReferral size={3} keyName='Referral' />}
-            <SketonReferral size={3} keyName='Referral' />
+            {/* <SketonReferral size={3} keyName='Referral' /> */}
             {friendsData.map((referral: any) => (
               <ReferralItem key={referral.friend_id} name={referral.friend.username} reward={referral.friend.points} />
             ))}

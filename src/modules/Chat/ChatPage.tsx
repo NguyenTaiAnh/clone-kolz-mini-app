@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router';
 import { ChatHeader } from './_components/ChatHeader';
 import { MessageBubble } from './_components/MessageBubble';
-import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { Send } from '@assets/icons';
 
 const ChatPage = () => {
   const { characterId } = useParams();
@@ -57,11 +57,11 @@ const ChatPage = () => {
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           type='text'
-          placeholder='Speak with The Crypto Lord...'
-          className='flex-1 p-2 rounded-3xl bg-white-500 text-black outline-none'
+          placeholder='Speak with The Crypto Lord'
+          className='flex-1 py-3 px-7 rounded-3xl bg-white-500 text-black outline-none'
         />
-        <button className='p-2 bg-blue-600 rounded-full' onClick={() => handleSendMessage()}>
-          <ArrowRightIcon className='h-5 w-5' />
+        <button className='px-[10px] py-[14px] bg-white rounded-full' onClick={() => handleSendMessage()}>
+          <Send/>
         </button>
       </div>
     </div>

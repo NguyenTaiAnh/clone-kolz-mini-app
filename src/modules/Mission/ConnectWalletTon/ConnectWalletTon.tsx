@@ -100,7 +100,7 @@ const ConnectWalletTon: React.FC<ConnectWalletTonProps> = ({
           </div>
         </div>
       ) : (
-        <button className={cn('py-2 bg-[#65C0E4] justify-center rounded-lg w-[100px]')} onClick={() => handleStart()}>
+        <button className={cn('px-4 py-2 bg-[#65C0E4] justify-center rounded-3xl')} onClick={handleStart}>
           Connect
         </button>
       )}

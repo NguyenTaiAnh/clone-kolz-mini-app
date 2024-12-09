@@ -6,18 +6,18 @@ interface MessageBubbleProps{
 }
 const MessageBubble:React.FC<MessageBubbleProps> = ({ sender, text, time }) => {
   const isUser = sender === "You";
-
+  console.log({time})
   return (
-    <div className={`flex ${isUser ? "justify-start" : "justify-end"} mb-4`}>
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-5`}>
       <div
-        className={`p-4 max-w-xs rounded-lg ${
-          isUser ? "bg-[#081222] text-white" : "bg-[#081222] text-gray-200"
+        className={`px-5 py-[10px] max-w-xs ${
+          !isUser ? "bg-white text-black rounded-r-[20px] rounded-tl-[20px]" : "bg-[#3B59A8] text-white rounded-l-[20px] rounded-tr-[20px]"
         }`}
       >
-        <div className="flex justify-between">
+        {/* <div className="flex justify-between">
             <span className="text-xs text-gray-400">{sender}</span>
             <span className="text-xs text-gray-400">{time}</span>
-        </div>
+        </div> */}
         <p>{text}</p>
       </div>
     </div>

@@ -13,9 +13,9 @@ const NavItem: React.FC<NavItemProps> = ({ className, onClick, icon, isCenter = 
     className={cn(
       className,
       {
-        'min-h-16 flex flex-col justify-between': true
+        'min-h-16 flex flex-col justify-center items-center': true
       },
-      isCenter && 'relative bg-[#ffffff] h-[75px] w-[80px] rounded-full shadow-lg -translate-y-8 border-4 border-[#222326]'
+      isCenter && 'relative bg-[#ffffff]  rounded-full shadow-lg -translate-y-10 border-[6px] border-[#222326]'
     )}
     onClick={onClick}
   >

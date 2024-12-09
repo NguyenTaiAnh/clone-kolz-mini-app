@@ -23,11 +23,11 @@ const DailyCheckIn = () => {
 
     return currentUser && (
         <div>
-            <h3 className="text-lg font-semibold mb-2 text-[#1E56F6]">Daily Check-in</h3>
-            <div className="bg-[#ffffff] p-3 rounded-lg mb-6">
-                <div className="bg-[#ffffff] flex justify-between text-black font-bold">
+            <h3 className="text-2xl font-semibold mb-5 text-white">Daily Check-in</h3>
+            <div className="bg-[#ffffff] px-4 py-2 rounded-2xl mb-6">
+                <div className=" flex justify-between text-black font-semibold">
                     <img src={CalendarIcon} className='w-10 h-10' />
-                    <span className='flex-grow flex items-center ml-4 text-base'>Lastest checked-in: { renderLatestCheckin() }</span>
+                    <span className='flex-grow flex items-center ml-4 text-base'>Last checked-in: { renderLatestCheckin() }</span>
                     { todayCheckin && (
                         <button className="px-4 py-2">
                             <img src={CheckInRed} className='w-8 h-8' />

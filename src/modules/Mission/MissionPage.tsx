@@ -1,9 +1,8 @@
 import React from 'react'
 
-import { Telegram, Twitter, Wallet } from '@assets/icons'
+import { ArrowLeftIcon, Telegram, Twitter, Wallet } from '@assets/icons'
 // import { CoinIcon } from '@assets/images'
 import { LoginSocialTwitter } from '@components/LoginSocialTwitter'
-import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 // import { useListTask } from '@hooks'
 import { getLocalStorage } from '@utils'
 import { memo } from 'react'
@@ -19,12 +18,12 @@ const MissionPage = () => {
   const currentUser = useStore((state) => state.currentUser)
   const [provider, setProvider] = React.useState('')
   const [profile, setProfile] = React.useState()
-  console.log({provider})
-  console.log({profile})
-  const [showPopup, setShowPopup] = React.useState(false);
+  console.log({ provider })
+  console.log({ profile })
+  const [showPopup, setShowPopup] = React.useState(false)
   const [showPopupTele, setShowPopupTele] = React.useState(false)
   const [showPopupX, setShowPopupX] = React.useState(false)
-  console.log({showPopupX})
+  console.log({ showPopupX })
   const onLoginStart = React.useCallback(() => {
     // alert("login start");
   }, [])
@@ -39,20 +38,18 @@ const MissionPage = () => {
   return (
     <div className='p-4'>
       <button
-        className='text-white flex items-center mb-4 bg-gray-600 rounded-2xl p-2'
+        className='text-white flex items-center mb-4 bg-[#474646] rounded-2xl p-2 px-3 font-medium'
         onClick={() => window.history.back()}
       >
-        <ArrowLeftIcon className='h-4 w-4 mr-1' /> Back
+        <ArrowLeftIcon className=' mr-1' /> Back
       </button>
-      <div className='flex justify-center space-x-4 mb-5'>
-        {/* <TwitterLogin/> */}
+      <div className='flex justify-center  gap-5 mb-5'>
+        <div onClick={() => setShowPopupTele(true)}>
+          <Telegram className=' text-white' />
+        </div>
         {!!infoX ? (
           <div onClick={() => setShowPopupX(true)}>
-            <Twitter
-              // onClick={() => setShowPopupX(true)}
-              // style={{ width: "40px", height: "40px", color: "white" }}
-              className='w-[40px] h-[40px] text-white'
-            />
+            <Twitter className=' text-white' />
           </div>
         ) : (
           <LoginSocialTwitter
@@ -68,24 +65,18 @@ const MissionPage = () => {
             onReject={(err: any) => {
               console.log(err)
             }}
+            className='flex items-center'
           >
-            <Twitter className='w-[40px] h-[40px] text-white' />
+            <Twitter className=' text-white' />
           </LoginSocialTwitter>
         )}
-        <div onClick={() => setShowPopupTele(true)}>
-          <Telegram className='w-[40px] h-[40px] text-white' />
-        </div>
-
         <div onClick={() => setShowPopup(true)}>
-          <Wallet
-            
-            className='w-[40px] h-[40px] text-white'
-          />
+          <Wallet className=' text-white' />
         </div>
       </div>
       <DailyCheckIn />
       <ListTask />
-      <ModalWalletEVM isOpen={showPopup} setIsOpen={setShowPopup}/>
+      <ModalWalletEVM isOpen={showPopup} setIsOpen={setShowPopup} />
       <ModalInfoSocial state={showPopupTele} setState={setShowPopupTele} data={currentUser} title='Telegram' />
       <ModalInfoSocial state={showPopupX} setState={setShowPopupX} data={infoX} title='X' />
     </div>

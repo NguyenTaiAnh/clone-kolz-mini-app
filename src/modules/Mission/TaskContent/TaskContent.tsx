@@ -141,7 +141,7 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
     if (task.link && !task.started) {
       return (
         <button
-          className={cn('px-4 py-2 bg-slate-400 justify-center rounded-3xl ', {
+          className={cn('px-4 py-2 bg-slate-400 justify-center rounded-3xl mb-4', {
             'bg-[#65C0E4]': !task.started
           })}
           onClick={() => !task.started && setIsDialogVisible(true)}
@@ -182,10 +182,10 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
         </div>
 
         {!((task.claimed && task.started) || !task.started) && task.link && (
-          <div className='mt-3 flex justify-center pt-4'>
+          <div className='mt-1 flex justify-center pb-4'>
             <Button
               className={cn(
-                ' h-auto font-bold px-5 py-3',
+                ' h-auto font-bold px-4 py-2 rounded-3xl',
                 (task.claimed && task.started) || isClaimLoading || !task.started
                   ? 'bg-slate-400 text-white'
                   : 'bg-[#65C0E4] text-white'
@@ -196,7 +196,7 @@ const TaskContent: React.FC<TaskContentProps> = ({ task, isOpen, setIsOpen }) =>
               disabled={(task.claimed && task.started) || isClaimLoading || !task.started}
             >
               
-              {isClaimLoading ? <><LoadingIcon /> Receiving...</> : 'Check'}
+              {isClaimLoading ? <><LoadingIcon /> Receiving...</> : 'Claim'}
             </Button>
           </div>
         )}

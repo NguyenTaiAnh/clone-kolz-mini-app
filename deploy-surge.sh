@@ -9,4 +9,4 @@ cp index.html 200.html
 
 # Start deploying via Surge
 # The command means deploy current folder to domain paul-photo-app.surge.sh
-surge . clone-kolz-mini-app.surge.sh
+surge . kolz-mini-app.surge.sh
